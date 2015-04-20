@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.example.vitor.aplicativo.NavigationDrawerFragment">
+    <LinearLayout
+        android:id="@+id/containerDrawerImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffcfcfcf">
+
+    <ImageView
+        android:paddingTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/siemenssmall"
+        android:paddingBottom="40dp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+
+        android:layout_below="@id/containerDrawerImage"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/drawerList">
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
