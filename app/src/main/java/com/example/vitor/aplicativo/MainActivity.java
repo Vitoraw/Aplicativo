@@ -11,8 +11,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.Toolbar;
+
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
@@ -23,6 +28,9 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     private MaterialTabHost tabHost;
     private android.support.v7.widget.Toolbar toolbar;
     private ViewPager viewPager;
+    public static final int ESQUERDA =0;
+    public static final int PRINCIPAL =1;
+    public static final int DIREITA =2;
 
 
     @Override
@@ -45,6 +53,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
             @Override
             public void onPageSelected(int position) {
                 tabHost.setSelectedNavigationItem(position);
+                
             }
         });
         for (int i=0;i<adapter.getCount();i++){
@@ -53,8 +62,29 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
 
         }
+        ImageView imageView =new ImageView(this);
+        imageView.setImageResource(R.drawable.contatoicon);
 
+        ImageView imageView1 =new ImageView(this);
+        imageView1.setImageResource(R.drawable.dinheiro);
 
+        ImageView imageView2 =new ImageView(this);
+        imageView2.setImageResource(R.drawable.homeicon);
+
+        ImageView imageView3 =new ImageView(this);
+        imageView3.setImageResource(R.drawable.contatoicon);
+
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this).setContentView(imageView).build();
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+        SubActionButton button1 = itemBuilder.setContentView(imageView1).build();
+        SubActionButton button2 = itemBuilder.setContentView(imageView2).build();
+        SubActionButton button3 = itemBuilder.setContentView(imageView3).build();
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(button1)
+                .addSubActionView(button2)
+                .addSubActionView(button3)
+                .attachTo(actionButton)
+                .build();
 
     }
 
@@ -101,14 +131,30 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
     }
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
-        int icons[] = {R.drawable.homeicon,R.drawable.contatoicon,R.drawable.tarefaicon};
+        int icons[] = {R.drawable.homeicon,R.drawable.dinheiro,R.drawable.tarefaicon};
         public ViewPagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return MyFragment.getInstance(position);
+            Fragment fragment=null;
+            switch (position){
+                case ESQUERDA:
+                    fragment=Esquerda.newInstance("","");
+                    break;
+                case PRINCIPAL:
+                    fragment=Principal.newInstance("","");
+                    break;
+                case DIREITA:
+                    fragment=Direita.newInstance("","");
+                    break;
+
+
+
+            }
+            return fragment;
+
         }
 
         @Override
